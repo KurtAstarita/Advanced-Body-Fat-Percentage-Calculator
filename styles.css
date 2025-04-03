@@ -1,0 +1,54 @@
+/* styles.css */
+#body-fat-calculator {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 90%;
+    width: 300px;
+    text-align: center;
+}
+
+#body-fat-calculator label,
+#body-fat-calculator input[type="number"],
+#body-fat-calculator select,
+#body-fat-calculator button {
+    display: block;
+    margin: 5px auto;
+    width: 90%;
+}
+
+#body-fat-calculator label {
+    text-align: left;
+}
+
+#body-fat-calculator input[type="number"],
+#body-fat-calculator select {
+    text-align: center;
+}
+
+#body-fat-result {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#skinfold-inputs,
+#circumference-inputs {
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    #body-fat-calculator {
+        padding: 15px;
+    }
+
+    #body-fat-calculator label,
+    #body-fat-calculator input[type="number"],
+    #body-fat-calculator select,
+    #body-fat-calculator button {
+        width: 95%;
+    }
+
+    #body-fat-result {
+        font-size: 0.9em;
+    }
+}
