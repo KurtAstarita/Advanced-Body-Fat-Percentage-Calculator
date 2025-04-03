@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Fat Percentage Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="body-fat-calculator">
+        <h3>Body Fat Percentage Calculator</h3>
+        <label for="gender">Gender:</label>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <br />
+        <label for="formula">Formula:</label>
+        <select id="formula">
+            <option value="jackson">Jackson/Pollock (Skinfold)</option>
+            <option value="ymca">YMCA (Circumference)</option>
+            <option value="navy">Navy (Circumference)</option>
+        </select>
+        <br />
+
+        <div id="skinfold-inputs" style="display: block;">
+            <label for="chest">Chest:</label>
+            <input type="number" id="chest" />
+            <br />
+            <label for="abdomen">Abdomen:</label>
+            <input type="number" id="abdomen" />
+            <br />
+            <label for="thigh">Thigh:</label>
+            <input type="number" id="thigh" />
+            <br />
+            <label for="triceps">Triceps:</label>
+            <input type="number" id="triceps" />
+            <br />
+            <label for="suprailiac">Suprailiac:</label>
+            <input type="number" id="suprailiac" />
+            <br />
+            <label for="midaxillary">Midaxillary:</label>
+            <input type="number" id="midaxillary" />
+            <br />
+            <label for="skinfold-unit">Unit:</label>
+            <select id="skinfold-unit">
+                <option value="mm">mm</option>
+                <option value="inches">inches</option>
+            </select>
+        </div>
+
+        <div id="circumference-inputs" style="display: none;">
+            <label for="neck">Neck (inches/cm):</label>
+            <input type="number" id="neck" />
+            <br />
+            <label for="waist">Waist (inches/cm):</label>
+            <input type="number" id="waist" />
+            <br />
+            <label for="hip">Hip (inches/cm):</label>
+            <input type="number" id="hip" />
+            <br />
+            <label for="height">Height (inches/cm):</label>
+            <input type="number" id="height" />
+            <br />
+            <label for="unit">Unit:</label>
+            <select id="unit">
+                <option value="inches">Inches</option>
+                <option value="cm">Centimeters</option>
+            </select>
+            <br />
+        </div>
+
+        <button id="calculate-body-fat">Calculate</button>
+        <p id="body-fat-result"></p>
+    </div>
+</body>
+</html>
