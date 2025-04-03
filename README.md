@@ -47,3 +47,7 @@ This project is open-source.
 ## Disclaimers
 
 * [Body Fat Percentage Calculator Disclaimer](path/to/body-fat-percentage-calculator-disclaimer.md)
+
+## Embed App
+
+* [How To Embed](https://post40gains.blogspot.com/p/how-to-embed-our-apps.html)
