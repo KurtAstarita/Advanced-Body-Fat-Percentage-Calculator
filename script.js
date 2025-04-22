@@ -1,4 +1,3 @@
-// script.js
 document.getElementById("formula").addEventListener("change", function() {
     var formula = document.getElementById("formula").value;
     document.getElementById("skinfold-inputs").style.display = (formula === "jackson") ? "block" : "none";
@@ -6,9 +5,8 @@ document.getElementById("formula").addEventListener("change", function() {
 });
 
 document.getElementById("calculate-body-fat").addEventListener("click", function() {
-    // Function to sanitize input (mainly to trim whitespace)
     function sanitizeInput(input) {
-        return input.trim();
+        return DOMPurify.sanitize(input);
     }
 
     var gender = document.getElementById("gender").value;
@@ -16,13 +14,20 @@ document.getElementById("calculate-body-fat").addEventListener("click", function
     var bodyFatPercentage;
 
     if (formula === "jackson") {
-        var chest = parseFloat(sanitizeInput(document.getElementById("chest").value));
-        var abdomen = parseFloat(sanitizeInput(document.getElementById("abdomen").value));
-        var thigh = parseFloat(sanitizeInput(document.getElementById("thigh").value));
-        var triceps = parseFloat(sanitizeInput(document.getElementById("triceps").value));
-        var suprailiac = parseFloat(sanitizeInput(document.getElementById("suprailiac").value));
-        var midaxillary = parseFloat(sanitizeInput(document.getElementById("midaxillary").value));
+        var chestInput = sanitizeInput(document.getElementById("chest").value);
+        var abdomenInput = sanitizeInput(document.getElementById("abdomen").value);
+        var thighInput = sanitizeInput(document.getElementById("thigh").value);
+        var tricepsInput = sanitizeInput(document.getElementById("triceps").value);
+        var suprailiacInput = sanitizeInput(document.getElementById("suprailiac").value);
+        var midaxillaryInput = sanitizeInput(document.getElementById("midaxillary").value);
         var skinfoldUnit = document.getElementById("skinfold-unit").value;
+
+        var chest = parseFloat(chestInput);
+        var abdomen = parseFloat(abdomenInput);
+        var thigh = parseFloat(thighInput);
+        var triceps = parseFloat(tricepsInput);
+        var suprailiac = parseFloat(suprailiacInput);
+        var midaxillary = parseFloat(midaxillaryInput);
 
         // Input Validation
         if (isNaN(chest) || isNaN(abdomen) || isNaN(thigh) || isNaN(triceps) || isNaN(suprailiac) || isNaN(midaxillary)) {
@@ -56,18 +61,23 @@ document.getElementById("calculate-body-fat").addEventListener("click", function
 
         bodyFatPercentage = (495 / density) - 450;
     } else if (formula === "ymca" || formula === "navy") {
-        var neck = parseFloat(sanitizeInput(document.getElementById("neck").value));
-        var waist = parseFloat(sanitizeInput(document.getElementById("waist").value));
-        var hip = parseFloat(sanitizeInput(document.getElementById("hip").value));
-        var height = parseFloat(sanitizeInput(document.getElementById("height").value));
+        var neckInput = sanitizeInput(document.getElementById("neck").value);
+        var waistInput = sanitizeInput(document.getElementById("waist").value);
+        var hipInput = sanitizeInput(document.getElementById("hip").value);
+        var heightInput = sanitizeInput(document.getElementById("height").value);
         var unit = document.getElementById("unit").value;
 
+        var neck = parseFloat(neckInput);
+        var waist = parseFloat(waistInput);
+        var hip = parseFloat(hipInput);
+        var height = parseFloat(heightInput);
+
         // Input Validation
-        if (isNaN(neck) || isNaN(waist) || isNaN(height)) {
+        if (isNaN(neck) || isNaN(waist) || isNaN(height) || (gender === "female" && isNaN(hip))) {
             document.getElementById("body-fat-result").textContent = "Please enter valid numbers for circumference measurements.";
             return;
         }
-        if (neck <= 0 || waist <= 0 || height <= 0) {
+        if (neck <= 0 || waist <= 0 || height <= 0 || (gender === "female" && hip <= 0)) {
             document.getElementById("body-fat-result").textContent = "Circumference measurements must be greater than zero.";
             return;
         }
