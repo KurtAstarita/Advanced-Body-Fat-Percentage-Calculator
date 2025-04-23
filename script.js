@@ -1,7 +1,24 @@
 document.getElementById("formula").addEventListener("change", function() {
     var formula = document.getElementById("formula").value;
-    document.getElementById("skinfold-inputs").style.display = (formula === "jackson") ? "block" : "none";
-    document.getElementById("circumference-inputs").style.display = (formula === "ymca" || formula === "navy") ? "block" : "none";
+    var skinfoldInputs = document.getElementById("skinfold-inputs");
+    var circumferenceInputs = document.getElementById("circumference-inputs");
+
+    if (formula === "jackson") {
+        skinfoldInputs.classList.add("show");
+        skinfoldInputs.classList.remove("hide");
+        circumferenceInputs.classList.add("hide");
+        circumferenceInputs.classList.remove("show");
+    } else if (formula === "ymca" || formula === "navy") {
+        circumferenceInputs.classList.add("show");
+        circumferenceInputs.classList.remove("hide");
+        skinfoldInputs.classList.add("hide");
+        skinfoldInputs.classList.remove("show");
+    } else {
+        skinfoldInputs.classList.add("hide");
+        skinfoldInputs.classList.remove("show");
+        circumferenceInputs.classList.add("hide");
+        circumferenceInputs.classList.remove("show");
+    }
 });
 
 document.getElementById("calculate-body-fat").addEventListener("click", function() {
