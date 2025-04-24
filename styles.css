@@ -1,4 +1,12 @@
 /* styles.css */
+.show {
+  display: block; /* Or use 'flex', 'grid', or any other block-level display */
+}
+
+.hide {
+  display: none;
+}
+
 #body-fat-calculator {
     border: 1px solid #ccc;
     padding: 20px;
