@@ -56,6 +56,10 @@
         <br />
 
         <div id="skinfold-inputs" class="show">
+         
+            <label for="age">Age:</label>
+            <input type="number" id="age" min="1" max="120" />
+            <br />
             <label for="chest">Chest:</label>
             <input type="number" id="chest" />
             <br />
@@ -101,19 +105,22 @@
             </select>
         </div>
 
-        <div id="ymca-inputs" class="hide">
-            <label for="ymca-waist">Waist (inches/cm):</label>
-            <input type="number" id="ymca-waist" />
-            <br />
-            <label for="weight">Weight (lbs/kg):</label>
-            <input type="number" id="weight" />
-            <br />
-            <label for="ymca-unit">Unit:</label>
-            <select id="ymca-unit">
-                <option value="inches_lbs">Inches/lbs</option>
-                <option value="cm_kg">Centimeters/kg</option>
-            </select>
-        </div>
+ <div id="ymca-inputs" class="hide">
+    <label for="ymca-waist">Waist (inches/cm):</label>
+    <input type="number" id="ymca-waist" />
+    <br />
+    <label for="ymca-hip">Hip: Women Only (inches/cm):</label> <input type="number" id="ymca-hip" /> 
+     <br />                              
+     <label for="weight">Weight (lbs/kg):</label>
+    <input type="number" id="weight" />
+    <br />
+    <label for="ymca-unit">Unit:</label>
+    <select id="ymca-unit">
+        <option value="inches_lbs">Inches/lbs</option>
+        <option value="cm_kg">Centimeters/kg</option>
+    </select>
+    <br />
+</div>
 
         <button id="calculate-body-fat">Calculate</button>
         <p id="body-fat-result"></p>
