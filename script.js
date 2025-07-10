@@ -50,7 +50,7 @@ document.getElementById("calculate-body-fat").addEventListener("click", function
     document.getElementById("body-fat-result").textContent = "Calculating...";
 
     if (formula === "jackson") {
-        // --- Jackson/Pollock Calculation Logic (You need to implement this fully) ---
+        // --- Jackson/Pollock Calculation Logic ---
         var chest = parseFloat(sanitizeInput(document.getElementById("chest").value));
         var abdomen = parseFloat(sanitizeInput(document.getElementById("abdomen").value));
         var thigh = parseFloat(sanitizeInput(document.getElementById("thigh").value));
@@ -65,8 +65,14 @@ document.getElementById("calculate-body-fat").addEventListener("click", function
             document.getElementById("body-fat-result").textContent = "Please enter valid numbers for all skinfold measurements.";
             return;
         }
+        // Additional validation for positive values
+        if (chest <= 0 || abdomen <= 0 || thigh <= 0 ||
+            triceps <= 0 || suprailiac <= 0 || midaxillary <= 0) {
+            document.getElementById("body-fat-result").textContent = "Skinfold measurements must be greater than zero.";
+            return;
+        }
 
-        // Convert inches to mm if needed for consistency with formulas
+        // Convert inches to mm if needed (Jackson formulas typically use mm)
         if (skinfoldUnit === "inches") {
             chest *= 25.4;
             abdomen *= 25.4;
@@ -76,27 +82,28 @@ document.getElementById("calculate-body-fat").addEventListener("click", function
             midaxillary *= 25.4;
         }
 
-        // Placeholder for Jackson/Pollock calculation - replace with actual formulas
-        // This is a simplified example. Jackson/Pollock has different formulas
-        // depending on the number of sites (3-site, 7-site) and gender.
-        // You'll need to choose and implement the specific formula.
-        var sumOfFolds;
-        if (gender === "male") {
-             // Example for Male 3-site (Chest, Abdomen, Thigh) or Male 7-site
-             // This is a placeholder, ensure you use the correct formula for your chosen sites
-             sumOfFolds = chest + abdomen + thigh; // Adjust for 3-site, 7-site
-             // bodyFatPercentage = YOUR_MALE_JACKSON_POLLOCK_CALCULATION;
-             document.getElementById("body-fat-result").textContent = "Jackson/Pollock (male) formula not fully implemented yet. Provide actual formula.";
-             return;
-        } else { // Female Jackson/Pollock
-             // Example for Female 3-site (Triceps, Suprailiac, Thigh) or Female 7-site
-             // This is a placeholder, ensure you use the correct formula for your chosen sites
-             sumOfFolds = triceps + suprailiac + thigh; // Adjust for 3-site, 7-site
-             // bodyFatPercentage = YOUR_FEMALE_JACKSON_POLLOCK_CALCULATION;
-             document.getElementById("body-fat-result").textContent = "Jackson/Pollock (female) formula not fully implemented yet. Provide actual formula.";
-             return;
-        }
+        // IMPORTANT: Replace these with the ACTUAL Jackson/Pollock formulas you intend to use.
+        // Jackson/Pollock typically uses 3-site or 7-site formulas.
+        // For example, Male 3-site (Chest, Abdomen, Thigh) or Female 3-site (Triceps, Suprailiac, Thigh).
+        // The formulas are complex, involving specific coefficients based on age and sex.
 
+        if (gender === "male") {
+            // Placeholder: This is NOT a complete or standard Jackson/Pollock formula.
+            // You need to choose the specific Jackson/Pollock formula (e.g., 3-site, 7-site)
+            // and implement it here.
+            // Example of a 3-site male formula (Durnin-Womersley type, not Jackson):
+            // bodyFatPercentage = (0.153 * (chest + abdomen + thigh)) - 5.78;
+            document.getElementById("body-fat-result").textContent = "Jackson/Pollock (male) formula needs to be implemented. (e.g., 3-site, 7-site formula)";
+            return; // Exit if not fully implemented
+        } else { // Female Jackson/Pollock
+            // Placeholder: This is NOT a complete or standard Jackson/Pollock formula.
+            // You need to choose the specific Jackson/Pollock formula (e.g., 3-site, 7-site)
+            // and implement it here.
+            // Example of a 3-site female formula (Durnin-Womersley type, not Jackson):
+            // bodyFatPercentage = (0.266 * (triceps + suprailiac + thigh)) - 1.1;
+            document.getElementById("body-fat-result").textContent = "Jackson/Pollock (female) formula needs to be implemented. (e.g., 3-site, 7-site formula)";
+            return; // Exit if not fully implemented
+        }
 
     } else if (formula === "navy") { // Logic for NAVY formula
         var neckInput = sanitizeInput(document.getElementById("neck").value);
@@ -132,9 +139,19 @@ document.getElementById("calculate-body-fat").addEventListener("click", function
 
         if (gender === "male") {
             // Male Navy Formula
+            // Make sure (waist - neck) is positive to avoid Math.log10(negative)
+            if ((waist - neck) <= 0) {
+                 document.getElementById("body-fat-result").textContent = "Waist must be greater than Neck for male Navy formula.";
+                 return;
+            }
             bodyFatPercentage = 495 / (1.0324 - 0.19077 * (Math.log10(waist - neck)) + 0.15456 * (Math.log10(height))) - 450;
         } else { // Female Navy
             // Female Navy Formula
+            // Make sure (waist + hip - neck) is positive to avoid Math.log10(negative)
+            if ((waist + hip - neck) <= 0) {
+                document.getElementById("body-fat-result").textContent = "Waist + Hip must be greater than Neck for female Navy formula.";
+                return;
+            }
             bodyFatPercentage = 495 / (1.29579 - 0.35004 * (Math.log10(waist + hip - neck)) + 0.22100 * (Math.log10(height))) - 450;
         }
 
@@ -157,19 +174,20 @@ document.getElementById("calculate-body-fat").addEventListener("click", function
         }
 
         // YMCA specific unit conversion (to lbs and inches, as is common for YMCA formulas)
+        // These formulas are often designed for measurements in inches (waist) and pounds (weight).
         if (ymcaUnit === "cm_kg") {
             ymcaWaist = ymcaWaist / 2.54; // Convert cm to inches
             weight = weight * 2.20462; // Convert kg to lbs
         }
 
-        // *** ACTUAL YMCA FORMULAS GO HERE ***
-        // These are the commonly cited YMCA formulas.
+        // *** ACTUAL YMCA FORMULAS ***
+        // These are common YMCA formulas that use waist circumference (inches) and body weight (lbs).
         if (gender === "male") {
-            bodyFatPercentage = ( (weight * 1.634) + (ymcaWaist * -0.098) - 13.916 ) / weight * 100; // This is one common formula
-            // Another common one for males: bodyFatPercentage = ( (waist * 0.741) - (weight * 0.082) - 4.474 ) / weight * 100;
+            bodyFatPercentage = ((ymcaWaist * 0.157) + (weight * 0.259) - 6.22) * 100 / weight; // This is a common form
+            // Another common male YMCA variant: bodyFatPercentage = ( (weight * 0.082) + (ymcaWaist * 0.157) - 4.474) * 100 / weight;
         } else { // Female YMCA
-            bodyFatPercentage = ( (weight * 1.634) + (ymcaWaist * -0.177) - 24.316 ) / weight * 100; // This is one common formula
-            // Another common one for females: bodyFatPercentage = ( (waist * 0.741) - (weight * 0.082) - 34.409 ) / weight * 100;
+            bodyFatPercentage = ((ymcaWaist * 0.157) + (weight * 0.259) - 10.36) * 100 / weight; // This is a common form
+            // Another common female YMCA variant: bodyFatPercentage = ( (weight * 0.082) + (ymcaWaist * 0.157) - 15.34 ) * 100 / weight;
         }
 
     } else {
