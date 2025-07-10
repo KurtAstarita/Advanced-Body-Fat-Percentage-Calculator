@@ -1,12 +1,13 @@
 /* styles.css */
 .show {
-  display: block; /* Or use 'flex', 'grid', or any other block-level display */
+  display: block !important; /* ADD !important HERE */
 }
 
 .hide {
-  display: none;
+  display: none !important;  /* ADD !important HERE */
 }
 
+/* The rest of your CSS remains the same */
 #body-fat-calculator {
     border: 1px solid #ccc;
     padding: 20px;
