@@ -1,3 +1,38 @@
+// Function to handle the formula change (can be called on load and on change)
+function handleFormulaChange() {
+    var formula = document.getElementById("formula").value;
+    var skinfoldInputs = document.getElementById("skinfold-inputs");
+    var circumferenceInputs = document.getElementById("circumference-inputs");
+
+    if (formula === "jackson") {
+        skinfoldInputs.classList.add("show");
+        skinfoldInputs.classList.remove("hide");
+        circumferenceInputs.classList.add("hide");
+        circumferenceInputs.classList.remove("show");
+    } else if (formula === "navy" || formula === "ymca") {
+        circumferenceInputs.classList.add("show");
+        circumferenceInputs.classList.remove("hide");
+        skinfoldInputs.classList.add("hide");
+        skinfoldInputs.classList.remove("show");
+    } else {
+        // This 'else' block handles cases where no specific formula type is selected,
+        // which might occur if you add other options without corresponding input types
+        skinfoldInputs.classList.add("hide");
+        skinfoldInputs.classList.remove("show");
+        circumferenceInputs.classList.add("hide");
+        circumferenceInputs.classList.remove("show");
+    }
+}
+
+// Add event listener for changes to the formula dropdown
+document.getElementById("formula").addEventListener("change", handleFormulaChange);
+
+// Call it once when the script loads to set the initial state
+// This ensures that either skinfold or circumference inputs are shown/hidden
+// based on the default selected formula when the page first loads.
+handleFormulaChange();
+
+
 document.getElementById("calculate-body-fat").addEventListener("click", function() {
     function sanitizeInput(input) {
         return DOMPurify.sanitize(input);
